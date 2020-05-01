@@ -6,8 +6,11 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class MultiServer {
-
+public class MultiServer extends DBConImpl{
+	
+	public MultiServer() {
+		super("kosmo","1234");
+	}
 	public static void main(String[] args) {
 
 		ServerSocket serverSocket = null;
@@ -16,7 +19,9 @@ public class MultiServer {
 		BufferedReader in = null;
 		String s = "";
 		String name = "";
-
+		DBInsert db;
+		
+		
 		try {
 			serverSocket = new ServerSocket(9999);
 			System.out.println("서버가 시작되었습니다.");
@@ -43,6 +48,8 @@ public class MultiServer {
 				}
 				System.out.println(name +" ==> "+ s);
 				out.println(">  "+ name +" ==> "+ s);
+				db = new DBInsert(name,s);
+				db.execute();
 			}
 
 			System.out.println("Bye...!!!");
